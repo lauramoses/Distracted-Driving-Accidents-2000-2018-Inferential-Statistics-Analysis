@@ -1,6 +1,6 @@
 ---
-title: "Some Research Topic Name"
-author: "Rose Ellison, Laura Moses, Miriam Nyamwaro, Chinaecherem Eze"
+title: "Change in Distracted Driving Analysis"
+author: "Contributors : Rose Ellison, Laura Moses, Miriam Nyamwaro, Chinaecherem Eze"
 output:
   html_document:
     toc_float: true
@@ -31,16 +31,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-![](images/covid.jpg)
+![](images/highway.jpg)
 
 
 # Introduction{.unnumbered}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+With the emergence of smart phonesLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 # Purpose{.unnumbered}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+In 2018, the average US adult spent just under three hours on a smart phone per day. This number has been increasing each year. With this large prevalence of smart phone technology on society, distracted driving is seemingly on the rise. Distracted driving due to smart phones can be categorized as texting, calling, internet surfing, or any other activity on the phone while driving. The purpose of this analysis is to use descriptive and inferential statistics to describe, calculate, and illustrate our findings of if the emergence of smart phone technology relates to the rate of distracted driving accidents. 
+
 
 
 

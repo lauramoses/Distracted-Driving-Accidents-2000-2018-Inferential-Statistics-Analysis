@@ -1,5 +1,5 @@
 ---
-title: "Change in Distracted Driving Analysis"
+title: "Impact of Regulations on Vehicle Accidents"
 author: "Contributors : Rose Ellison, Laura Moses, Miriam Nyamwaro, Chinaecherem Eze"
 output:
   html_document:
@@ -27,20 +27,18 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = TRUE,
+                      error = TRUE,
+                      message = FALSE)
 ```
 
 
 ![](images/highway.jpg)
 
 
-# Introduction{.unnumbered}
-With the emergence of smart phonesLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-# Purpose{.unnumbered}
-In 2018, the average US adult spent just under three hours on a smart phone per day. This number has been increasing each year. With this large prevalence of smart phone technology on society, distracted driving is seemingly on the rise. Distracted driving due to smart phones can be categorized as texting, calling, internet surfing, or any other activity on the phone while driving. The purpose of this analysis is to use descriptive and inferential statistics to describe, calculate, and illustrate our findings of if the emergence of smart phone technology relates to the rate of distracted driving accidents. 
+# Introduction and Purpose{.unnumbered}
+Currently, the average US adult spends about three hours on a smart phone per day. This number has been increasing each year. With this large prevalence of smart phone technology on society, distracted driving is seemingly on the rise. Distracted driving due to smart phones can be categorized as texting, calling, internet surfing, or any other activity on the phone while driving. Furthermore, distraction from the primary task of driving occurs when drivers divert their attention from the driving task to some other activity.The purpose of this analysis is to use descriptive and inferential statistics to describe, calculate, and illustrate the impacts of hand held regulations during driving.
 
 
 
@@ -52,41 +50,262 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 # Data{.unnumbered}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The datasets to be used are downloaded from The Fatality Analysis Reporting System (FARS) website. FARS is a nationwide census providing NHTSA, Congress and the American public yearly data regarding fatal injuries suffered in motor vehicle traffic crashes. Starting in 2010, FARS began implementing a system to report on distracted driving. The columns included in each distracted dataset are STATE, ST_CASE, VEH_NO, and MDRDSTRD. The column of interest is MDRDSTRD which categorizes the type of distraction, if any. The number 0 indicates not distracted while all other numbers indicate some type of distraction attribute. 
 
 ### Possible Constraints{.unnumbered}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The Fatality Analysis Reporting System (FARS) did not begin the implementation of documenting distracted driving until 2010. This limits our analysis to only years between 2010 and present. <br>
+Although all states have some sort of regulation on cell phone use while driving, we will categorize regulations in two ways; 1) States that do regulate (states that prohibit all drivers from using hand-held cell phones while driving) and 2) States that do not regulate (All others).
 
 
 # Setup{.unnumbered}
-```{r, eval=FALSE}
-install.packages("ggplot2")
-library(ggplot2)
-library(tidyverse)
+The majority of work can be done using Base-R. Other libraries will be added for data manipulation and visualization. Data manipulation is needed for data exploration and will include the dplyr and tidyverse libraries. Data visualization is needed to gain insights from the data that would not otherwise have been clear using other tools. These libraries include ggplot2 and RColorBrewer. ggplot2 is a powerful graphics language for creating elegant and complex plots. The idea is to provide the data and tell the function how to map variables to the aesthetics. <br>
+
+
+```{r}
+
+# For Data Manipulation
+# install.packages("dplyr")
 library(dplyr)
+library(tidyverse)
+library(magrittr)
+
+# For Data Visualization
+# install.packages("ggplot2")
+library(ggplot2)
+library(RColorBrewer)
+library(knitr)
+
+
+# Import Distracted Datasets
+distracted_2010 <- read.csv("data/FARS2010NationalCSV/DISTRACT.CSV")
+distracted_2011 <- read.csv("data/FARS2011NationalCSV/DISTRACT.CSV")
+distracted_2012 <- read.csv("data/FARS2012NationalCSV/DISTRACT.CSV")
+distracted_2013 <- read.csv("data/FARS2013NationalCSV/DISTRACT.CSV")
+distracted_2014 <- read.csv("data/FARS2014NationalCSV/DISTRACT.CSV")
+distracted_2015 <- read.csv("data/FARS2015NationalCSV/DISTRACT.CSV")
+distracted_2016 <- read.csv("data/FARS2016NationalCSV/DISTRACT.CSV")
+distracted_2017 <- read.csv("data/FARS2017NationalCSV/DISTRACT.CSV")
+distracted_2018 <- read.csv("data/FARS2018NationalCSV/DISTRACT.CSV")
 
 ```
 
+
+
+
 # Descriptive Analysis{.unnumbered}
-```{r, eval=FALSE}
-# Some code here
+
+Currently, there are nine dataframes seperated for all the distracted accidents between the years 2010 and 2018.
+The first step to the analysis is to inspect the data.
+
+```{r include = TRUE, results = 'asis', eval = TRUE}
+# HTML friendly table to display the dataframe
+kable(distracted_2010[1:5, ], align=rep('c', 4))
+```
+
+From the table, we can see there are four columns in each dataset; 'STATE', "ST_CASE', 'VEH_NO', and 'MDRDSTRD'. For this analysis our only columns we will need are 'STATE', because we are comparing regulated states vs unregulated states, and 'MDRDSTRD' which categorizes the type of distraction. The number '0' in the 'MDRDSTRD' represents no distraction while every other number represents some type of distraction.<br>
+To make things more simple, a master dataframe needs to be created that contains one observation for each distracted dataset. Since our focus is on the proportion size, each observation will contain two columns; year and the proportion of distracted to non-distracted drivers. <br>
+In other words, we need to create and call a function that will take each yearly dataframe, find the proportion of distracted accidents, and then add the year and proportion as a new observation to the master dataframe.  
+
+```{r}
+
+# Initialize Empty Master Data Frame
+distracted_all <- data.frame(Year = as.Date(character()),
+                 Prop_Distracted = character(), 
+                 stringsAsFactors=FALSE) 
+
+# Create a Function to get Proportion Size and Combine Datasets into the Master Dataset
+add_prop_size_and_join_by_year <- function(dataframe, year, masterDF)
+{
+  # Create Total Column 
+  dataframe <- dataframe %>%
+    group_by(MDRDSTRD) %>%
+    summarize(Total = n())
+
+  # Get Total That Is Not Distracted
+  total_not_distracted <- dataframe %>% 
+    filter(MDRDSTRD == 0) %>% 
+    select(Total)
+  
+  # Find Proportion Distracted
+  prop_distracted <- (sum(dataframe$Total) - total_not_distracted) / sum(dataframe$Total)
+  
+  # Add a new observation to master data frame with year and     proportion of cell phone distracted driving
+  masterDF <- rbind(c(Prop_Distracted = prop_distracted, Year = year), masterDF)
+  return(masterDF)
+  
+}
+
+# Call Function For Each Year
+distracted_all <- add_prop_size_and_join_by_year(distracted_2010, 2010, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2011, 2011, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2012, 2012, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2013, 2013, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2014, 2014, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2015, 2015, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2016, 2016, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2017, 2017, distracted_all)
+distracted_all <- add_prop_size_and_join_by_year(distracted_2018, 2018, distracted_all)
+
+# Rename Column in Dataframe
+distracted_all <- distracted_all %>% 
+  rename(Prop_Distracted = Prop_Distracted.Total) %>% 
+  arrange(Year)
+
+```
+
+To get a better understanding of the results, the master dataframe needs to be displayed. 
+
+```{r include = TRUE, results = 'asis', eval = TRUE}
+# Display Master Distracted Accidents Dataset
+kable(distracted_all[1:9, ], caption = "Master Dataset with Proportion of Distracted Drivers During Accident", align=rep('c', 2))
+```
+
+
+```{r, echo = FALSE}
+# Descriptive Analysis to Learn More About the Data
+paste("Population Mean Proportion of Distracted Drivers :", mean(distracted_all$Prop_Distracted))
+paste("Population Median Proportion of Distracted Drivers :", median(distracted_all$Prop_Distracted))
+paste("Population Standard Deviation :", sd(distracted_all$Prop_Distracted))
+diff_prop <- max(distracted_all$Prop_Distracted) - min(distracted_all$Prop_Distracted)
+paste("Population Minimum Proportion of Distracted Drivers :", min(distracted_all$Prop_Distracted))
+paste("Population Maximum Proportion of Distracted Drivers :", max(distracted_all$Prop_Distracted))
+paste("Population Difference in Max and Min Proportion of Distracted Drivers :", diff_prop)
+
+# Population Parameters
+mu <- mean(distracted_all$Prop_Distracted)
+```
+
+From the descriptive analysis, it is clear that the proportion of accidents due to distracted driving has increased over time. In fact, the distracted driving accidents have more than doubled between 2011 and 2018, with the average proportion of distracted driving accidents being 0.375. However, this data is based on data from the entire population. We want to focus our hypothesis testing on states that regulate cell phone use while driving. For this reason, the above descriptive statistics will be considered our population statistics. We will now need to seperate the data into two sample groups; states that regulate cell phone use while driving and states that do not regulate cell phone use while driving. <br>
+In the original FARS dataset, states are categorized 1 through 56 in the 'STATE' column. The FARS Analytical User's Manual describes which states the categorical numbers represent.
+
+```{r warning = FALSE}
+# Empty master dataframe to store all regulated states and prop sizes
+regulated_states_with_prop_size <- data.frame(Year = as.Date(character()),
+                 Prop_Distracted = character(), 
+                 stringsAsFactors=FALSE) 
+# A function that takes a dataframe and only return values from states that regulate
+getRegulatedStates <- function(dataframe, regulated_states_for_that_year)
+{
+  dataframe <- dataframe %>% 
+    filter(STATE == regulated_states_for_that_year)
+
+  return(dataframe)
+}
+
+# Call getRegulatedStates function for each dataframe
+regulated_2010 <- getRegulatedStates(distracted_2010, c(6,9,23,24,34,36,41,53,11,52))
+regulated_2011 <- getRegulatedStates(distracted_2011, c(6,9,10,23,24,34,36,41,53,11,52))
+regulated_2012 <- getRegulatedStates(distracted_2012, c(6,9,10,23,24,32,34,36,41,53,11,52))
+regulated_2013 <- getRegulatedStates(distracted_2013, c(6,9,10,15,23,24,32,34,36,41,53,54,11,43,52))
+regulated_2014 <- getRegulatedStates(distracted_2014, c(6,9,10,15,17,23,24,32,34,36,41,50,53,54,11,43,52))
+regulated_2015 <- getRegulatedStates(distracted_2015, c(6,9,10,15,17,23,24,32,33,34,36,41,50,53,54,11,43,52))
+regulated_2016 <- getRegulatedStates(distracted_2016, c(6,9,10,15,17,23,24,32,33,34,35,36,41,50,53,54,11,43,52))
+regulated_2017 <- getRegulatedStates(distracted_2017, c(6,9,10,15,17,23,24,32,33,34,35,36,41,50,53,54,11,43,52))
+regulated_2018 <- getRegulatedStates(distracted_2018, c(6,9,10,13,15,17,23,24,32,33,34,35,36,41,44,50,53,54,11,43,52))
+
+
+# Put all regulated data into a master dataframe with prop sizes
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2010, 2010, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2011, 2011, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2012, 2012, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2013, 2013, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2014, 2014, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2015, 2015, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2016, 2016, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2017, 2017, regulated_states_with_prop_size)
+regulated_states_with_prop_size <- add_prop_size_and_join_by_year(regulated_2018, 2018, regulated_states_with_prop_size)
+
+
+# Rename Column in Dataframe
+regulated_states_with_prop_size <- regulated_states_with_prop_size %>% 
+  rename(Prop_Distracted = Prop_Distracted.Total) %>% 
+  arrange(Year)
+```
+
+
+```{r, echo = FALSE}
+# Descriptive Analysis to Learn More About the Data
+paste("Sample Mean Proportion of Distracted Drivers :", mean(regulated_states_with_prop_size$Prop_Distracted))
+paste("Sample Median Proportion of Distracted Drivers :", median(regulated_states_with_prop_size$Prop_Distracted))
+paste("Sample Standard Deviation :", sd(regulated_states_with_prop_size$Prop_Distracted))
+diff_prop <- max(regulated_states_with_prop_size$Prop_Distracted) - min(regulated_states_with_prop_size$Prop_Distracted)
+paste("Sample Minimum Proportion of Distracted Drivers :", min(regulated_states_with_prop_size$Prop_Distracted))
+paste("Sample Maximum Proportion of Distracted Drivers :", max(regulated_states_with_prop_size$Prop_Distracted))
+paste("Sample Difference in Max and Min Proportion of Distracted Drivers :", diff_prop)
+
+# Sample Parameters
+x_bar <- mean(regulated_states_with_prop_size$Prop_Distracted)
+```
+
+```{r include = TRUE, results = 'asis', eval = TRUE}
+# Display Master Distracted Accidents Dataset
+kable(regulated_states_with_prop_size[1:9, ], caption = "Master Regulated Dataset with Proportion of Distracted Drivers During Accident", align=rep('c', 2))
 ```
 
 # Visualization{.unnumbered}
-```{r, eval=FALSE}
-# Some code here
+Now that the distracted datasets are all contained into one master dataset with the distracted proportion sizes, illustrations can be shown from the data. 
+
+```{r}
+# Plot the Master Dataset to Show the Relationship of Year and Proportion of Distracted Drivers Size.
+
+# Create Custom Theme
+theme_mytheme <- function (base_size = 15, base_family = "") 
+{
+    theme_bw() %+replace% 
+    theme(
+      panel.grid.major  = element_line(color = "gray"),
+      panel.background = element_rect(fill = "white"),
+      panel.border = element_rect(color = "white", fill = NA),
+      axis.line = element_line(color = "white"),
+      axis.ticks = element_line(color = "white"),
+      axis.text = element_text(color = "black"),
+      )
+}
+
+# Plot geom_line With Year and Prop_Distracted Columns For All States
+ggplot(distracted_all, aes(x = Year, y = Prop_Distracted, color = "blue")) + 
+  geom_line(color="cyan", size = 6) +
+  xlab("Year") + ylab("Proportion Distracted") + 
+  ggtitle("Proportion of Distracted Driving Accidents Over Time Nationally") + 
+  theme_mytheme()
+
+# Plot geom_line With Year and Prop_Distracted Columns for Regulated States
+ggplot(regulated_states_with_prop_size, aes(x = Year, y = Prop_Distracted, color = "blue")) + 
+  geom_line(color="magenta", size = 6) +
+  xlab("Year") + ylab("Proportion Distracted") + 
+  ggtitle("Proportion of Distracted Driving Accidents Over Time For Regulated States") + 
+  theme_mytheme()
+
+# Plot Both to Visually Compare
+ggplot(regulated_states_with_prop_size, aes(x = Year, y = Prop_Distracted, color = "blue")) + 
+  geom_line(color="magenta", size = 6) +
+  geom_line(data = distracted_all, color="cyan", size = 6) +
+  xlab("Year") + ylab("Proportion Distracted") + 
+  ggtitle("Proportion of Distracted Driving Accidents Over Time") + 
+  theme_mytheme()
+
 ```
+
+
+### Visualization and Descriptive Analysis Conclusion {.unnumbered}
+From the illustrations, it is clear that both the population and sample follow the same overall trend, although not exact. A solution to our problem is not made immediatly clear. There are some years that the national level were lower while other years only regulated states were lower.
+
 
 # Inferencial Analysis{.unnumbered}
-```{r}
-# Some code here
-```
 
-# Hypothesis Testing{.unnumbered}
+From the descriptive analysis, we found our mu (population mean) and our x bar (sample mean) from the subset of only regulated states dataset. Our original question was, of the total accidents, have the ratio of distracted drivers changed by state regulation of prohibiting hand held devices. The common held belief is that the ratio will go down, so this will be our null hypothesis.
+
+## Hypothesis Testing{.unnumbered}
+
+Null Hypothesis : Regulating cell phone use while driving leads to a smaller proportion size of distracted driving accidents to total accidents.<br>
+Alternative Hypothesis : Regulating cell phone use while driving does NOT lead to a smaller proportion size of distracted driving accidents to total accidents.
+
+H_o : x_bar < mu <br>
+H_a : x_bar => mu
+
 ```{r}
-# Some code here
+
+
 ```
 
 
